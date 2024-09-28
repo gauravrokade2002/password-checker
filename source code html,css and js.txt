@@ -1,0 +1,240 @@
+#htmlcode
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="( #CSS_filename#.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Password Strength Checker</h1>
+        <input type="password" id="password" placeholder="Enter your password">
+        <div id="feedback">
+            <span id="length" class="feedback-item">Minimum 8 characters</span>
+            <span id="uppercase" class="feedback-item">Uppercase letter</span>
+            <span id="lowercase" class="feedback-item">Lowercase letter</span>
+            <span id="number" class="feedback-item">Number</span>
+            <span id="special" class="feedback-item">Special character</span>
+        </div>
+        <div id="strength-bar-container">
+            <div id="strength-bar"></div>
+        </div>
+        <div id="strength-text"></div>
+    </div>
+    <script src="#JS_filename#.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+#csscode
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(45deg, #000000, #d5b8b3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: rgba(6, 6, 6, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.984);
+    width: 320px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #ddd5d5;
+    font-size: 24px;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="password"]:focus {
+    border-color: #7b4397;
+    box-shadow: 0 0 8px rgba(123, 67, 151, 0.3);
+}
+
+#feedback {
+    margin: 10px 0;
+    text-align: left;
+    color: #c3c1c1;
+}
+
+.feedback-item {
+    display: block;
+    font-size: 14px;
+    margin: 5px 0;
+    transition: color 0.3s;
+}
+
+.feedback-item.valid {
+    color: #28a745;
+}
+
+#strength-bar-container {
+    margin-top: 15px;
+    width: 100%;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#strength-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+#strength-text {
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.4s;
+}
+
+/* Colorful gradients for the strength bar */
+.weak {
+    width: 20%;
+    background: linear-gradient(90deg, #ff6f69, #ff3e41);
+}
+
+.fair {
+    width: 40%;
+    background: linear-gradient(90deg, #ffcc5c, #f3c623);
+}
+
+.good {
+    width: 60%;
+    background: linear-gradient(90deg, #88d8b0, #56b68b);
+}
+
+.strong {
+    width: 80%;
+    background: linear-gradient(90deg, #28a745, #2ecc71);
+}
+
+.very-strong {
+    width: 100%;
+    background: linear-gradient(90deg, #009efd, #0ca906);
+}
+
+/* Corresponding text colors for the strength */
+.weak-text {
+    color: #ff3e41;
+}
+
+.fair-text {
+    color: #f3c623;
+}
+
+.good-text {
+    color: #56b68b;
+}
+
+.strong-text {
+    color: #2ecc71;
+}
+
+.very-strong-text {
+    color: #0ca906;
+}
+
+
+
+#gauravrroakade2002
+
+
+#jscode
+
+document.getElementById('password').addEventListener('input', function() {
+    const password = this.value;
+
+    // Basic criteria
+    const lengthCriteria = password.length >= 8;
+    const uppercaseCriteria = /[A-Z]/.test(password);
+    const lowercaseCriteria = /[a-z]/.test(password);
+    const numberCriteria = /\d/.test(password);
+    const specialCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    // Additional criteria
+    const noSingleCharRepeat = !/(.)\1/.test(password); // No double repeated characters
+    const noTripleCharRepeat = !/(.)\1\1/.test(password); // No triple repeated characters
+    const noSequentialChars = !/(012|123|234|345|456|567|678|789|890|12|23|34|45|56|67|78|89|1234|12345|ab|abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|wxy|xyz)/.test(password); // No sequential characters
+
+    // Check for forbidden patterns: single, double, or triple repetitions
+    const noForbiddenPatterns = !(/(\d)\1{2,}|([a-zA-Z])\2{2,}|(.)(?=.*\1{2,})/.test(password));
+    
+    // Update feedback UI
+    document.getElementById('length').classList.toggle('valid', lengthCriteria);
+    document.getElementById('uppercase').classList.toggle('valid', uppercaseCriteria);
+    document.getElementById('lowercase').classList.toggle('valid', lowercaseCriteria);
+    document.getElementById('number').classList.toggle('valid', numberCriteria);
+    document.getElementById('special').classList.toggle('valid', specialCriteria);
+
+    // Calculate number of criteria met
+    const criteriaMet = [
+        lengthCriteria, 
+        uppercaseCriteria, 
+        lowercaseCriteria, 
+        numberCriteria, 
+        specialCriteria, 
+        noSingleCharRepeat, 
+        noTripleCharRepeat, 
+        noSequentialChars,
+        noForbiddenPatterns
+    ].filter(Boolean).length;
+
+    const strengthBar = document.getElementById('strength-bar');
+    const strengthText = document.getElementById('strength-text');
+    strengthBar.className = '';
+    strengthText.className = '';
+
+    // Determine password strength
+    if (criteriaMet === 0) {
+        strengthBar.style.width = '0';
+        strengthText.textContent = '';
+    } else if (criteriaMet <= 2) {
+        strengthBar.classList.add('weak');
+        strengthText.textContent = 'Weak';
+        strengthText.classList.add('weak-text');
+    } else if (criteriaMet <= 4) {
+        strengthBar.classList.add('fair');
+        strengthText.textContent = 'Fair';
+        strengthText.classList.add('fair-text');
+    } else if (criteriaMet <= 6) {
+        strengthBar.classList.add('good');
+        strengthText.textContent = 'Good';
+        strengthText.classList.add('good-text');
+    } else if (criteriaMet <= 7) {
+        strengthBar.classList.add('strong');
+        strengthText.textContent = 'Strong';
+        strengthText.classList.add('strong-text');
+    } else if (criteriaMet === 8) {
+        strengthBar.classList.add('very-strong');
+        strengthText.textContent = 'Very Strong';
+        strengthText.classList.add('very-strong-text');
+    }
+});
