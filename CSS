@@ -1,0 +1,126 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(45deg, #000000, #d5b8b3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: rgba(6, 6, 6, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.984);
+    width: 320px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #ddd5d5;
+    font-size: 24px;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="password"]:focus {
+    border-color: #7b4397;
+    box-shadow: 0 0 8px rgba(123, 67, 151, 0.3);
+}
+
+#feedback {
+    margin: 10px 0;
+    text-align: left;
+    color: #c3c1c1;
+}
+
+.feedback-item {
+    display: block;
+    font-size: 14px;
+    margin: 5px 0;
+    transition: color 0.3s;
+}
+
+.feedback-item.valid {
+    color: #28a745;
+}
+
+#strength-bar-container {
+    margin-top: 15px;
+    width: 100%;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#strength-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+#strength-text {
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.4s;
+}
+
+/* Colorful gradients for the strength bar */
+.weak {
+    width: 20%;
+    background: linear-gradient(90deg, #ff6f69, #ff3e41);
+}
+
+.fair {
+    width: 40%;
+    background: linear-gradient(90deg, #ffcc5c, #f3c623);
+}
+
+.good {
+    width: 60%;
+    background: linear-gradient(90deg, #88d8b0, #56b68b);
+}
+
+.strong {
+    width: 80%;
+    background: linear-gradient(90deg, #28a745, #2ecc71);
+}
+
+.very-strong {
+    width: 100%;
+    background: linear-gradient(90deg, #009efd, #0ca906);
+}
+
+/* Corresponding text colors for the strength */
+.weak-text {
+    color: #ff3e41;
+}
+
+.fair-text {
+    color: #f3c623;
+}
+
+.good-text {
+    color: #56b68b;
+}
+
+.strong-text {
+    color: #2ecc71;
+}
+
+.very-strong-text {
+    color: #0ca906;
+}
